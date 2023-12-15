@@ -4,6 +4,8 @@ from pygame.locals import *
 # test git push Navid
 # test git pull Navid
 #test git pull muhib
+# test git push muaaz
+
 
 # VARIABLES
 SCREEN_WIDHT = 400
