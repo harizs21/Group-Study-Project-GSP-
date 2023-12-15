@@ -2,6 +2,7 @@ import pygame, random, time
 from pygame.locals import *
 
 # test git push Navid
+# test git pull Navid
 
 # VARIABLES
 SCREEN_WIDHT = 400
