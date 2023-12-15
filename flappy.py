@@ -1,6 +1,8 @@
 import pygame, random, time
 from pygame.locals import *
 
+# test git push Navid
+
 # VARIABLES
 SCREEN_WIDHT = 400
 SCREEN_HEIGHT = 600
