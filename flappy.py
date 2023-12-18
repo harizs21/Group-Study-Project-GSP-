@@ -1,5 +1,12 @@
 import pygame, random, time
 from pygame.locals import *
+import pygame
+from pygame.locals import *
+from pygame import mixer
+
+mixer.init()
+mixer.music.load('assets/audio/bensound-summer_ogg_music.ogg')
+mixer.music.play()
 
 # test git push Navid
 # test git pull Navid
