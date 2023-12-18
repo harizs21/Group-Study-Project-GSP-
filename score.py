@@ -6,6 +6,18 @@ pygame.font.init()
 score = 0
 score_increment = 10
 
+# Set up the window
+screen = pygame.display.set_mode((750, 450))
+
+# Set up the game clock
+clock = pygame.time.Clock()
+
+# Set up the player character
+player = pygame.Rect(100, 200, 50, 50)
+
+# Set up the obstacle
+obstacle = pygame.Rect(200, 200, 50, 50)
+
 # Set up the game loop
 while True:
     font = pygame.font.Font(None, 36)
