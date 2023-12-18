@@ -1,4 +1,4 @@
-import pygame, random, time
+import pygame, random, time, sys, os
 from pygame.locals import *
 import pygame
 from pygame.locals import *
@@ -8,14 +8,9 @@ mixer.init()
 mixer.music.load('assets/audio/bensound-summer_ogg_music.ogg')
 mixer.music.play()
 
-# test git push Navid
-# test git pull Navid
-#test git pull muhib
-#test git push Muhib
+pygame.init()
+pygame.font.init()
 
-
-#test git muaaz
-#test git pull
 
 # VARIABLES
 SCREEN_WIDHT = 400
