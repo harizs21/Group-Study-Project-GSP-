@@ -95,7 +95,7 @@ class Ground(pygame.sprite.Sprite):
 
     def __init__(self, xpos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('assets/sprites/base.png').convert_alpha()
+        self.image = pygame.image.load('assets/sprites/water1.jpg').convert_alpha()
         self.image = pygame.transform.scale(self.image, (GROUND_WIDHT, GROUND_HEIGHT))
 
         self.mask = pygame.mask.from_surface(self.image)
@@ -123,7 +123,7 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDHT, SCREEN_HEIGHT))
 pygame.display.set_caption('Flappy Bird')
 
-BACKGROUND = pygame.image.load('assets/sprites/background-day.png')
+BACKGROUND = pygame.image.load('assets/sprites/underwater11.jpg')
 BACKGROUND = pygame.transform.scale(BACKGROUND, (SCREEN_WIDHT, SCREEN_HEIGHT))
 BEGIN_IMAGE = pygame.image.load('assets/sprites/message.png').convert_alpha()
 
