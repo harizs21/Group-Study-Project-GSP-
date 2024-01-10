@@ -95,7 +95,7 @@ class Ground(pygame.sprite.Sprite):
 
     def __init__(self, xpos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('assets/sprites/bottom.png').convert_alpha()
+        self.image = pygame.image.load('assets/sprites/img_2.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (GROUND_WIDHT, GROUND_HEIGHT))
 
         self.mask = pygame.mask.from_surface(self.image)
