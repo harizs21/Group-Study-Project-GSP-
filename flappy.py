@@ -39,8 +39,8 @@ class Bird(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.images = [pygame.image.load('assets/sprites/bluebird-upflap.png').convert_alpha(),
-                       pygame.image.load('assets/sprites/bluebird-midflap.png').convert_alpha(),
-                       pygame.image.load('assets/sprites/bluebird-downflap.png').convert_alpha()]
+                       pygame.image.load('assets/sprites/redbird-midflap.png').convert_alpha(),
+                       pygame.image.load('assets/sprites/yellowbird-downflap.png').convert_alpha()]
 
         self.speed = SPEED
 
@@ -73,7 +73,7 @@ class Pipe(pygame.sprite.Sprite):
     def __init__(self, inverted, xpos, ysize):
         pygame.sprite.Sprite.__init__(self)
 
-        self.image = pygame.image.load('assets/sprites/hook101.png').convert_alpha()
+        self.image = pygame.image.load('assets/sprites/sharks11.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (PIPE_WIDHT, PIPE_HEIGHT))
 
         self.rect = self.image.get_rect()
@@ -95,7 +95,7 @@ class Ground(pygame.sprite.Sprite):
 
     def __init__(self, xpos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('assets/sprites/water1.jpg').convert_alpha()
+        self.image = pygame.image.load('assets/sprites/bottom.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (GROUND_WIDHT, GROUND_HEIGHT))
 
         self.mask = pygame.mask.from_surface(self.image)
