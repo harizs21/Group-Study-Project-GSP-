@@ -36,6 +36,8 @@ hit = 'assets/audio/hit.wav'
 
 pygame.mixer.init()
 
+score = 0
+font = pygame.font.Font(None, 36)
 
 class Bird(pygame.sprite.Sprite):
 
@@ -55,6 +57,13 @@ class Bird(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect[0] = SCREEN_WIDHT / 6
         self.rect[1] = SCREEN_HEIGHT / 2
+
+
+
+
+
+
+
 
     def update(self):
         self.current_image = (self.current_image + 1) % 3
@@ -222,7 +231,7 @@ while True:
 
     pygame.display.update()
 
-    if (pygame.sprite.groupcollide(bird_group, ground_group, False, False, pygame.sprite.collide_mask) or
+    if (pygame.sprite.groupcollide(bird_group, ground_group, False, False,   pygame.sprite.collide_mask) or
             pygame.sprite.groupcollide(bird_group, pipe_group, False, False, pygame.sprite.collide_mask)):
         pygame.mixer.music.load(hit)
         pygame.mixer.music.play()
