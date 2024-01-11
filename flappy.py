@@ -117,10 +117,15 @@ def is_off_screen(sprite):
 
 
 def get_random_pipes(xpos):
-    size = random.randint(100, 300)
+    size = random.randint(0, 300)
     pipe = Pipe(False, xpos, size)
     pipe_inverted = Pipe(True, xpos, SCREEN_HEIGHT - size - PIPE_GAP)
-    return pipe, pipe_inverted
+
+    # Define the scoring rectangle
+    score_rectangle = pygame.Rect(xpos + PIPE_WIDHT // 2 - 5, 0, 10, SCREEN_HEIGHT)
+
+    return pipe, pipe_inverted, score_rectangle
+
 
 
 pygame.init()
