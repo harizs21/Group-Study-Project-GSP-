@@ -22,7 +22,9 @@ SCREEN_HEIGHT = 600
 SPEED = 20
 GRAVITY = 2.5
 GAME_SPEED = 15
-
+score = 0
+score_display = pygame.font.Font('freesansbold.ttf')
+pass_pipe = False
 GROUND_WIDHT = 2 * SCREEN_WIDHT
 GROUND_HEIGHT = 100
 
@@ -36,8 +38,7 @@ hit = 'assets/audio/hit.wav'
 
 pygame.mixer.init()
 
-score = 0
-font = pygame.font.Font(None, 36)
+
 
 class Bird(pygame.sprite.Sprite):
 
@@ -50,6 +51,8 @@ class Bird(pygame.sprite.Sprite):
 
         self.speed = SPEED
 
+
+
         self.current_image = 0
         self.image = pygame.image.load('assets/sprites/bluebird-upflap.png').convert_alpha()
         self.mask = pygame.mask.from_surface(self.image)
@@ -58,6 +61,9 @@ class Bird(pygame.sprite.Sprite):
         self.rect[0] = SCREEN_WIDHT / 6
         self.rect[1] = SCREEN_HEIGHT / 2
 
+    def score_display(score):
+        display = score_display.render(f"Score: {score}", True, (255,255,255))
+        SCREEN.blit(display,(10,10))
 
 
 
@@ -237,3 +243,10 @@ while True:
         pygame.mixer.music.play()
         time.sleep(1)
         break
+score_display(score)
+screen = pygame.display.set_mode((750, 450))
+clock = pygame.time.Clock()
+player = pygame.Rect(100, 200, 50, 50)
+obstacle = pygame.Rect(200, 200, 50, 50)
+while True:
+    font = pygame.font.Font(None, 36)
