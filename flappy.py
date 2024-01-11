@@ -4,6 +4,8 @@ import pygame
 from pygame.locals import *
 from pygame import mixer
 
+# hariz test
+
 mixer.init()
 mixer.music.load('assets/audio/bensound-summer_ogg_music.ogg')
 mixer.music.play()
