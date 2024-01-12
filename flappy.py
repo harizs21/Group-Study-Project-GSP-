@@ -22,7 +22,9 @@ SCREEN_HEIGHT = 600
 SPEED = 20
 GRAVITY = 2.5
 GAME_SPEED = 15
-
+score = 0
+score_display = pygame.font.Font('freesansbold.ttf')
+pass_pipe = False
 GROUND_WIDHT = 2 * SCREEN_WIDHT
 GROUND_HEIGHT = 100
 
@@ -37,6 +39,7 @@ hit = 'assets/audio/hit.wav'
 pygame.mixer.init()
 
 
+
 class Bird(pygame.sprite.Sprite):
 
     def __init__(self):
@@ -48,6 +51,8 @@ class Bird(pygame.sprite.Sprite):
 
         self.speed = SPEED
 
+
+
         self.current_image = 0
         self.image = pygame.image.load('assets/sprites/bluebird-upflap.png').convert_alpha()
         self.mask = pygame.mask.from_surface(self.image)
@@ -55,6 +60,16 @@ class Bird(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect[0] = SCREEN_WIDHT / 6
         self.rect[1] = SCREEN_HEIGHT / 2
+
+    def score_display(score):
+        display = score_display.render(f"Score: {score}", True, (255,255,255))
+        SCREEN.blit(display,(10,10))
+
+
+
+
+
+
 
     def update(self):
         self.current_image = (self.current_image + 1) % 3
@@ -123,10 +138,15 @@ def is_off_screen(sprite):
 
 
 def get_random_pipes(xpos):
-    size = random.randint(100, 300)
+    size = random.randint(0, 300)
     pipe = Pipe(False, xpos, size)
     pipe_inverted = Pipe(True, xpos, SCREEN_HEIGHT - size - PIPE_GAP)
-    return pipe, pipe_inverted
+
+    # Define the scoring rectangle
+    score_rectangle = pygame.Rect(xpos + PIPE_WIDHT // 2 - 5, 0, 10, SCREEN_HEIGHT)
+
+    return pipe, pipe_inverted, score_rectangle
+
 
 
 pygame.init()
@@ -228,9 +248,16 @@ while True:
 
     pygame.display.update()
 
-    if (pygame.sprite.groupcollide(bird_group, ground_group, False, False, pygame.sprite.collide_mask) or
+    if (pygame.sprite.groupcollide(bird_group, ground_group, False, False,   pygame.sprite.collide_mask) or
             pygame.sprite.groupcollide(bird_group, pipe_group, False, False, pygame.sprite.collide_mask)):
         pygame.mixer.music.load(hit)
         pygame.mixer.music.play()
         time.sleep(1)
         break
+score_display(score)
+screen = pygame.display.set_mode((750, 450))
+clock = pygame.time.Clock()
+player = pygame.Rect(100, 200, 50, 50)
+obstacle = pygame.Rect(200, 200, 50, 50)
+while True:
+    font = pygame.font.Font(None, 36)
