@@ -61,15 +61,6 @@ class Bird(pygame.sprite.Sprite):
         self.rect[0] = SCREEN_WIDHT / 6
         self.rect[1] = SCREEN_HEIGHT / 2
 
-    def score_display(score):
-        display = score_display.render(f"Score: {score}", True, (255,255,255))
-        SCREEN.blit(display,(10,10))
-
-
-
-
-
-
 
     def update(self):
         self.current_image = (self.current_image + 1) % 3
@@ -101,8 +92,10 @@ class Pipe(pygame.sprite.Sprite):
         if inverted:
             self.image = pygame.transform.flip(self.image, False, True)
             self.rect[1] = - (self.rect[3] - ysize)
+            self.direction = 1
         else:
             self.rect[1] = SCREEN_HEIGHT - ysize
+            self.direction = -1
 
         self.mask = pygame.mask.from_surface(self.image)
 
@@ -112,8 +105,16 @@ class Pipe(pygame.sprite.Sprite):
 
     def update(self):
         self.rect[0] -= GAME_SPEED
-        self.rect[1] = self.rect[1] + self.amplitude * pygame.math.Vector2(0, 1).rotate(self.frequency * self.time).y
+
+        # Update the y-coordinate based on the direction of motion
+        self.rect[1] += self.direction * self.amplitude * pygame.math.Vector2(0, 1).rotate(self.frequency * self.time).y
         self.time += 1
+
+        # Change the direction when the pipe reaches the top or bottom of the screen
+        if self.direction == -1 and self.rect.top < 0:
+            self.direction = 1  # Change to downward motion
+        elif self.direction == 1 and self.rect.bottom > SCREEN_HEIGHT:
+            self.direction = -1  # speed
 
 
 class Ground(pygame.sprite.Sprite):
