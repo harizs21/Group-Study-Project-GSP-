@@ -91,8 +91,14 @@ class Pipe(pygame.sprite.Sprite):
 
         self.mask = pygame.mask.from_surface(self.image)
 
+        self.amplitude = 10
+        self.frequency = 0.3
+        self.time = 2
+
     def update(self):
         self.rect[0] -= GAME_SPEED
+        self.rect[1] = self.rect[1] + self.amplitude * pygame.math.Vector2(0, 1).rotate(self.frequency * self.time).y
+        self.time += 1
 
 
 class Ground(pygame.sprite.Sprite):
