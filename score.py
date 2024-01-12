@@ -1,52 +1,21 @@
-import pygame, os, sys
+import pygame
+class Score:
+    def __init__(self):
+        self.score = 0
+        self.font = None
+        self.x = 10
+        self.y = 10
 
-pygame.init()
-pygame.font.init()
+    def set_font(self, font):
+        self.font = font
 
-score = 0
-score_increment = 10
+    def increase_score(self, points=1):
+        self.score += points
 
-# Set up the window
-screen = pygame.display.set_mode((750, 450))
+    def reset_score(self):
+        self.score = 0
 
-# Set up the game clock
-clock = pygame.time.Clock()
-
-# Set up the player character
-player = pygame.Rect(100, 200, 50, 50)
-
-# Set up the obstacle
-obstacle = pygame.Rect(200, 200, 50, 50)
-
-# Set up the game loop
-while True:
-    font = pygame.font.Font(None, 36)
-    # Handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                player.x -= 10
-            elif event.key == pygame.K_RIGHT:
-                player.x += 10
-
-    # Update the game state
-    if player.colliderect(obstacle):
-        score += score_increment
-
-    # Draw the game
-    screen.fill((0, 0, 0))
-    pygame.draw.rect(screen, (255, 0, 0), player)
-    pygame.draw.rect(screen, (0, 255, 0), obstacle)
-
-    # Draw the score to the screen
-    score_text = font.render(f'Score: {score}', True, (255, 255, 255))
-    screen.blit(score_text, (10, 10))
-
-    # Update the display
-    pygame.display.flip()
-
-    # Limit the frame rate
-    clock.tick(60)
+    def draw(self, screen):
+        if self.font:
+            score_text = self.font.render(f"Score: {self.score}", True, (255, 255, 255))
+            screen.blit(score_text, (self.x, self.y))
