@@ -1,11 +1,12 @@
 import pygame
 import sys
+import subprocess
 
 # Initialize pygame
 pygame.init()
 
 # Set up the screen
-screen_width = 800
+screen_width = 400
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Game Menu")
@@ -43,9 +44,9 @@ class Button:
             self.hovered = False
 
 # Create buttons
-start_button = Button(300, 200, 200, 50, "Start", BLACK, WHITE)
-choose_button = Button(300, 300, 200, 50, "Choose", BLACK, WHITE)
-quit_button = Button(300, 400, 200, 50, "Quit", BLACK, WHITE)
+start_button = Button(100, 200, 200, 50, "Start", BLACK, WHITE)
+choose_button = Button(100, 300, 200, 50, "Choose", BLACK, WHITE)
+quit_button = Button(100, 400, 200, 50, "Quit", BLACK, WHITE)
 
 # Main loop
 running = True
@@ -63,7 +64,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if start_button.rect.collidepoint(event.pos):
                 # Add start button functionality here
-                pass
+                subprocess.run(["python", "flappy.py"])
             if choose_button.rect.collidepoint(event.pos):
                 # Add choose button functionality here
                 pass

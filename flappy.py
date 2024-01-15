@@ -5,10 +5,7 @@ from pygame.locals import *
 from pygame import mixer
 
 
-
-# hariz test
-
-screen_width = 800
+screen_width = 400
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Flappy Bird")
@@ -17,6 +14,7 @@ pygame.display.set_caption("Flappy Bird")
 mixer.init()
 mixer.music.load('assets/audio/bensound-summer_ogg_music.ogg')
 mixer.music.play()
+
 
 pygame.init()
 pygame.font.init()
@@ -28,10 +26,11 @@ SCREEN_HEIGHT = 600
 SPEED = 20
 GRAVITY = 2.5
 GAME_SPEED = 15
+score = 0
+score_display = pygame.font.Font('freesansbold.ttf')
 pass_pipe = False
 GROUND_WIDHT = 2 * SCREEN_WIDHT
 GROUND_HEIGHT = 100
-
 
 PIPE_WIDHT = 80
 PIPE_HEIGHT = 500
@@ -42,8 +41,6 @@ wing = 'assets/audio/wing.wav'
 hit = 'assets/audio/hit.wav'
 
 pygame.mixer.init()
-
-
 
 
 
@@ -122,7 +119,6 @@ class Pipe(pygame.sprite.Sprite):
             self.direction = 1  # Change to downward motion
         elif self.direction == 1 and self.rect.bottom > SCREEN_HEIGHT:
             self.direction = -1  # speed
-
 
 
 class Ground(pygame.sprite.Sprite):
@@ -262,8 +258,11 @@ while True:
         pygame.mixer.music.load(hit)
         pygame.mixer.music.play()
         time.sleep(1)
-
-
-
-
-
+        break
+score_display(score)
+screen = pygame.display.set_mode((750, 450))
+clock = pygame.time.Clock()
+player = pygame.Rect(100, 200, 50, 50)
+obstacle = pygame.Rect(200, 200, 50, 50)
+while True:
+    font = pygame.font.Font(None, 36)
