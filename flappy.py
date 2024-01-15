@@ -92,15 +92,15 @@ class Pipe(pygame.sprite.Sprite):
         if inverted:
             self.image = pygame.transform.flip(self.image, False, True)
             self.rect[1] = - (self.rect[3] - ysize)
-            self.direction = 1
+            self.direction = 5
         else:
             self.rect[1] = SCREEN_HEIGHT - ysize
             self.direction = -1
 
         self.mask = pygame.mask.from_surface(self.image)
 
-        self.amplitude = 10
-        self.frequency = 0.3
+        self.amplitude = -5 #speed
+        self.frequency = 3.0 #up and down
         self.time = 2
 
     def update(self):
