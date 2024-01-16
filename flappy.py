@@ -17,10 +17,14 @@ mixer.music.play()
 
 
 pygame.init()
+
 pygame.font.init()
 
+clock = pygame.time.Clock()
 
 # VARIABLES
+
+score = 0
 SCREEN_WIDHT = 400
 SCREEN_HEIGHT = 600
 SPEED = 20
@@ -30,8 +34,8 @@ score = 0
 score_display = pygame.font.Font('freesansbold.ttf')
 pass_pipe = False
 GROUND_WIDHT = 2 * SCREEN_WIDHT
-GROUND_HEIGHT = 100
-
+GROUND_HEIGHT = 0
+font = pygame.font.SysFont('Bauhaus 93', 60)
 PIPE_WIDHT = 80
 PIPE_HEIGHT = 500
 
@@ -132,8 +136,8 @@ class Ground(pygame.sprite.Sprite):
         self.rect[0] = xpos
         self.rect[1] = SCREEN_HEIGHT - GROUND_HEIGHT
 
-    def update(self):
-        self.rect[0] -= GAME_SPEED
+def update(self):
+    self.rect[0] -= GAME_SPEED
 
 
 def is_off_screen(sprite):
@@ -152,9 +156,6 @@ def get_random_pipes(xpos):
 
 
 
-pygame.init()
-screen = pygame.display.set_mode((SCREEN_WIDHT, SCREEN_HEIGHT))
-pygame.display.set_caption('Flappy Bird')
 
 BACKGROUND = pygame.image.load('assets/sprites/underwater11.jpg')
 BACKGROUND = pygame.transform.scale(BACKGROUND, (SCREEN_WIDHT, SCREEN_HEIGHT))
