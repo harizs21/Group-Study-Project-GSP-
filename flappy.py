@@ -35,14 +35,12 @@ GROUND_HEIGHT = 100
 PIPE_WIDHT = 80
 PIPE_HEIGHT = 500
 
-PIPE_GAP = 150
+PIPE_GAP = 100
 
 wing = 'assets/audio/wing.wav'
 hit = 'assets/audio/hit.wav'
 
 pygame.mixer.init()
-
-
 
 class Bird(pygame.sprite.Sprite):
 
@@ -103,7 +101,7 @@ class Pipe(pygame.sprite.Sprite):
 
         self.mask = pygame.mask.from_surface(self.image)
 
-        self.amplitude = -5 #speed
+        self.amplitude = -2.5 #speed
         self.frequency = 3.0 #up and down
         self.time = 2
 

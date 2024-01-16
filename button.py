@@ -14,7 +14,8 @@ pygame.display.set_caption("Game Menu")
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-
+RED =  (255,0,0)
+BLUE = (173, 216, 230)
 # Fonts
 font = pygame.font.Font(None, 36)
 
@@ -44,9 +45,9 @@ class Button:
             self.hovered = False
 
 # Create buttons
-start_button = Button(100, 200, 200, 50, "Start", BLACK, WHITE)
-choose_button = Button(100, 300, 200, 50, "Choose", BLACK, WHITE)
-quit_button = Button(100, 400, 200, 50, "Quit", BLACK, WHITE)
+start_button = Button(100, 200, 200, 50, "Start", RED, BLACK)
+choose_button = Button(100, 300, 200, 50, "Chose", RED, BLACK)
+quit_button = Button(100, 400, 200, 50, "Quit", RED, BLACK)
 
 # Main loop
 running = True
@@ -74,7 +75,7 @@ while running:
                 sys.exit()
 
     # Draw the buttons
-    screen.fill(WHITE)
+    screen.fill(BLUE)
     start_button.draw(screen)
     choose_button.draw(screen)
     quit_button.draw(screen)
