@@ -1,9 +1,9 @@
-
 import pygame
 import random
 import time
 from pygame.locals import *
 from pygame import mixer
+
 
 screen_width = 400
 screen_height = 600
@@ -16,6 +16,8 @@ mixer.music.play()
 
 pygame.init()
 pygame.font.init()
+
+clock = pygame.time.Clock()
 
 # VARIABLES
 SCREEN_WIDHT = 400
@@ -39,7 +41,6 @@ hit = 'assets/audio/hit.wav'
 
 pygame.mixer.init()
 
-
 class Bird(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -52,6 +53,7 @@ class Bird(pygame.sprite.Sprite):
         self.current_image = 0
         self.image = pygame.image.load('assets/sprites/bluebird-upflap.png').convert_alpha()
         self.mask = pygame.mask.from_surface(self.image)
+
         self.rect = self.image.get_rect()
         self.rect[0] = SCREEN_WIDHT / 6
         self.rect[1] = SCREEN_HEIGHT / 2
@@ -68,7 +70,6 @@ class Bird(pygame.sprite.Sprite):
     def begin(self):
         self.current_image = (self.current_image + 1) % 3
         self.image = self.images[self.current_image]
-
 
 class Pipe(pygame.sprite.Sprite):
     def __init__(self, inverted, xpos, ysize):
@@ -108,6 +109,7 @@ class Ground(pygame.sprite.Sprite):
         self.image = pygame.image.load('assets/sprites/img_5.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (GROUND_WIDHT, GROUND_HEIGHT))
         self.mask = pygame.mask.from_surface(self.image)
+
         self.rect = self.image.get_rect()
         self.rect[0] = xpos
         self.rect[1] = SCREEN_HEIGHT - GROUND_HEIGHT
@@ -126,8 +128,6 @@ def get_random_pipes(xpos):
     pipe_inverted = Pipe(True, xpos, SCREEN_HEIGHT - size - PIPE_GAP)
     score_rectangle = pygame.Rect(xpos + PIPE_WIDHT // 2 - 5, 0, 10, SCREEN_HEIGHT)
     return pipe, pipe_inverted, score_rectangle
-
-
 
 BACKGROUND = pygame.image.load('assets/sprites/underwater11.jpg')
 BACKGROUND = pygame.transform.scale(BACKGROUND, (SCREEN_WIDHT, SCREEN_HEIGHT))
@@ -163,7 +163,6 @@ while begin:
                 bird.bump()
                 pygame.mixer.music.load(wing)
                 pygame.mixer.music.play()
-
                 begin = False
 
     screen.blit(BACKGROUND, (0, 0))
@@ -227,14 +226,58 @@ while True:
     screen.blit(score_text, (10, 10))
 
     pygame.display.update()
-
+    font = pygame.font.Font(None, 36)
     if (pygame.sprite.groupcollide(bird_group, ground_group, False, False,   pygame.sprite.collide_mask) or
             pygame.sprite.groupcollide(bird_group, pipe_group, False, False, pygame.sprite.collide_mask)):
         pygame.mixer.music.load(hit)
         pygame.mixer.music.play()
-        time.sleep(1)
-        break
 
+        game_over_text = font.render("Game Over", True, (255, 0, 0))
+        screen.blit(game_over_text, (50, 160))
+
+        # Display the final score
+        final_score_text = font.render("Score: " + str(score), True, (0, 255, 0))
+        screen.blit(final_score_text, (100, 120))
+
+        # Display restart prompt
+        restart_text = font.render("R to restart", True, (0, 0, 255))
+        screen.blit(restart_text, (80, 200))
+
+        pygame.display.update()
+
+        # Wait for the user to press 'R' to restart or 'Q' to quit
+        restart = False
+        while not restart:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                if event.type == KEYDOWN:
+                    if event.key == K_r:
+                        restart = True
+                        # Reset the game state
+                        bird.rect[1] = SCREEN_HEIGHT / 2
+                        bird.speed = SPEED
+                        score = 0
+                        pipe_group.empty()
+                        ground_group.empty()
+                        pass_pipe = False
+
+                        for i in range(2):
+                            ground = Ground(GROUND_WIDHT * i)
+                            ground_group.add(ground)
+
+                        for i in range(2):
+                            pipes = get_random_pipes(SCREEN_WIDHT * i + 800)
+                            pipe_group.add(pipes[0])
+                            pipe_group.add(pipes[1])
+
+                        pygame.mixer.music.load('assets/audio/bensound-summer_ogg_music.ogg')
+                        pygame.mixer.music.play()
+                    elif event.key == K_q:
+                        pygame.quit()
+    if pass_pipe:
+        score += 1
+        pass_pipe = False
 display_score(score)
 screen = pygame.display.set_mode((750, 450))
 clock = pygame.time.Clock()
@@ -243,5 +286,6 @@ obstacle = pygame.Rect(200, 200, 50, 50)
 while True:
     font = pygame.font.Font(None, 36)
 pygame.init()
+
 screen = pygame.display.set_mode((SCREEN_WIDHT, SCREEN_HEIGHT))
 pygame.display.set_caption('Flappy Bird')
