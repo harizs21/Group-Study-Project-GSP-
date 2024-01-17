@@ -83,4 +83,3 @@ while running:
     # Add background image here
 
     pygame.display.flip()
-
