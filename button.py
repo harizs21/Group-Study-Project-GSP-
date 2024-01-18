@@ -22,12 +22,14 @@ font = pygame.font.Font(None, 36)
 
 # Create buttons
 class Button:
-    def __init__(self, x, y, width, height, text, color, hover_color):
+    def __init__(self, x, y, width, height, text, color, hover_color, command=None, submenu=None):
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
         self.color = color
         self.hover_color = hover_color
         self.hovered = False
+        self.command = command
+        self.submenu = submenu
 
     def draw(self, surface):
         if self.hovered:
@@ -45,42 +47,53 @@ class Button:
         else:
             self.hovered = False
 
-# Create buttons
-start_button = Button(100, 200, 200, 50, "Start", RED, BLACK)
-choose_button = Button(100, 300, 200, 50, "Choose", RED, BLACK)
-quit_button = Button(100, 400, 200, 50, "Quit", RED, BLACK)
+# Create a Menu class to handle different groups of buttons
+class Menu:
+    def __init__(self, buttons):
+        self.buttons = buttons
 
-# Main loop
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-            pygame.quit()
-            sys.exit()
-        if event.type == pygame.MOUSEMOTION:
-            mouse_pos = event.pos
-            start_button.update(mouse_pos)
-            choose_button.update(mouse_pos)
-            quit_button.update(mouse_pos)
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if start_button.rect.collidepoint(event.pos):
-                # Add start button functionality here
-                subprocess.run(["python", "flappy.py"])
-            if choose_button.rect.collidepoint(event.pos):
-                # Add choose button functionality here
-                pass
-            if quit_button.rect.collidepoint(event.pos):
-                running = False
-                pygame.quit()
-                sys.exit()
+    def run(self):
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEMOTION:
+                    mouse_pos = event.pos
+                    for button in self.buttons:
+                        button.update(mouse_pos)
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    for button in self.buttons:
+                        if button.rect.collidepoint(event.pos):
+                            if button.command:
+                                if button.command[0] == "quit":
+                                    running = False
+                                    pygame.quit()
+                                    sys.exit()
+                                else:
+                                    subprocess.run(button.command)
+                            elif button.submenu:
+                                button.submenu.run()
 
-    # Draw the buttons
-    screen.fill(BLUE)
-    start_button.draw(screen)
-    choose_button.draw(screen)
-    quit_button.draw(screen)
+            # Draw the buttons
+            screen.fill(BLUE)
+            for button in self.buttons:
+                button.draw(screen)
 
-    # Add background image here
+            pygame.display.flip()
 
-    pygame.display.flip()
+# Create buttons for different game options
+flappy_button = Button(100, 200, 200, 50, "Flappy Mode", RED, BLACK, command=["python", "flappy.py"])
+flappy2_button = Button(100, 300, 200, 50, "Flappy2 Mode", RED, BLACK, command=["python", "flappy2.py"])
+quit_button = Button(100, 400, 200, 50, "Quit", RED, BLACK, command=["quit"])
+
+# Create a submenu for different game options
+game_submenu = Menu([flappy_button, flappy2_button, quit_button])
+
+# Create a top-level menu with the submenu option
+main_menu = Menu([Button(100, 100, 200, 50, "Select Game", RED, BLACK, submenu=game_submenu)])
+
+# Run the main menu
+main_menu.run()
