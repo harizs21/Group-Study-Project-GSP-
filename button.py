@@ -14,8 +14,9 @@ pygame.display.set_caption("Game Menu")
 # Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-RED =  (255,0,0)
+RED = (255, 0, 0)
 BLUE = (173, 216, 230)
+
 # Fonts
 font = pygame.font.Font(None, 36)
 
@@ -46,7 +47,7 @@ class Button:
 
 # Create buttons
 start_button = Button(100, 200, 200, 50, "Start", RED, BLACK)
-choose_button = Button(100, 300, 200, 50, "Chose", RED, BLACK)
+choose_button = Button(100, 300, 200, 50, "Choose", RED, BLACK)
 quit_button = Button(100, 400, 200, 50, "Quit", RED, BLACK)
 
 # Main loop
