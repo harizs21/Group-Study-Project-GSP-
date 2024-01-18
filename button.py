@@ -47,6 +47,10 @@ class Button:
         else:
             self.hovered = False
 
+'''# Create buttons
+start_button = Button(100, 200, 200, 50, "Start", RED, BLACK)
+choose_button = Button(100, 300, 200, 50, "Chose", RED, BLACK)
+quit_button = Button(100, 400, 200, 50, "Quit", RED, BLACK)'''
 # Create a Menu class to handle different groups of buttons
 class Menu:
     def __init__(self, buttons):
@@ -84,16 +88,24 @@ class Menu:
 
             pygame.display.flip()
 
-# Create buttons for different game options
+# Buttons
 flappy_button = Button(100, 200, 200, 50, "Flappy Mode", RED, BLACK, command=["python", "flappy.py"])
 flappy2_button = Button(100, 300, 200, 50, "Flappy2 Mode", RED, BLACK, command=["python", "flappy2.py"])
 quit_button = Button(100, 400, 200, 50, "Quit", RED, BLACK, command=["quit"])
+diff_button = Button(100, 200, 200, 50, "Difficulty", RED, BLACK, command=[])
+lead_button = Button(100, 300, 200, 50, "Leaderboard", RED, BLACK, command=[])
 
-# Create a submenu for different game options
-game_submenu = Menu([flappy_button, flappy2_button, quit_button])
 
-# Create a top-level menu with the submenu option
-main_menu = Menu([Button(100, 100, 200, 50, "Select Game", RED, BLACK, submenu=game_submenu)])
+# Submenu for options
+options_game_submenu = Menu([diff_button, lead_button])
+option_button = Button(100, 300, 200, 50, "Options", RED, BLACK, submenu=options_game_submenu)
+
+# Submenu for start
+start_game_submenu = Menu([flappy_button, flappy2_button])
+start_button = Button(100, 200, 200, 50, "Start", RED, BLACK, submenu=start_game_submenu)
+
+# Menu with the submenu option
+main_menu = Menu([start_button, option_button, quit_button])
 
 # Run the main menu
 main_menu.run()
