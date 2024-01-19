@@ -1,9 +1,7 @@
 import pygame
 import random
-import time
 from pygame.locals import *
 from pygame import mixer
-
 
 screen_width = 400
 screen_height = 600

@@ -92,7 +92,7 @@ class Menu:
 flappy_button = Button(100, 200, 200, 50, "Flappy Mode", RED, BLACK, command=["python", "flappy.py"])
 flappy2_button = Button(100, 300, 200, 50, "Flappy2 Mode", RED, BLACK, command=["python", "flappy2.py"])
 quit_button = Button(100, 400, 200, 50, "Quit", RED, BLACK, command=["quit"])
-diff_button = Button(100, 200, 200, 50, "Difficulty", RED, BLACK, command=[])
+diff_button = Button(100, 200, 200, 50, "Difficulty", RED, BLACK, command=["python", "app.py"])
 lead_button = Button(100, 300, 200, 50, "Leaderboard", RED, BLACK, command=[])
 
 
