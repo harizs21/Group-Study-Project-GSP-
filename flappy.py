@@ -17,6 +17,7 @@ pygame.font.init()
 
 clock = pygame.time.Clock()
 
+snake_sound_timer = pygame.time.get_ticks()
 # VARIABLES
 SCREEN_WIDHT = 400
 SCREEN_HEIGHT = 600
@@ -97,7 +98,7 @@ class Pipe(pygame.sprite.Sprite):
             self.direction = -1
 
         self.mask = pygame.mask.from_surface(self.image)
-        self.amplitude = -5  # speed
+        self.amplitude = -3  # speed
         self.frequency = 3.0  # up and down
         self.time = 2
 
@@ -192,7 +193,6 @@ while begin:
     screen.blit(score_text, (10, 10))
 
     pygame.display.update()
-
 while True:
     clock.tick(15)
 
@@ -230,18 +230,23 @@ while True:
     pipe_group.draw(screen)
     ground_group.draw(screen)
 
+    current_time = pygame.time.get_ticks()
+
+
     score += 1  # Update the score
     score_text = display_score.render(f"Score: {score}", True, (255, 255, 255))
     screen.blit(score_text, (10, 10))
 
+
+
     pygame.display.update()
-    font = pygame.font.Font(None, 36)
+    font = pygame.font.Font(None, 66)
     if (pygame.sprite.groupcollide(bird_group, ground_group, False, False,   pygame.sprite.collide_mask) or
             pygame.sprite.groupcollide(bird_group, pipe_group, False, False, pygame.sprite.collide_mask)):
         pygame.mixer.music.load(hit)
         pygame.mixer.music.play()
 
-        game_over_text = font.render("Game Over", True, (255, 0, 0))
+        game_over_text = font.render("Game Over", True, (144, 141, 141))
         screen.blit(game_over_text, (50, 160))
 
         # Display the final score

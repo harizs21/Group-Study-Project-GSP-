@@ -9,7 +9,7 @@ from pygame import mixer
 
 
 mixer.init()
-mixer.music.load('assets/audio/bensound-summer_ogg_music.ogg')
+mixer.music.load('assets/audio/rain.mp3')
 mixer.music.play()
 
 pygame.init()
@@ -160,9 +160,11 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDHT, SCREEN_HEIGHT))
 pygame.display.set_caption('Flappy Bird')
 
-BACKGROUND = pygame.image.load('assets/sprites/img_25.png')
+DEFAULT_IMAGE_SIZE = (250, 250)
+BACKGROUND = pygame.image.load('assets/sprites/background11.jpg')
 BACKGROUND = pygame.transform.scale(BACKGROUND, (SCREEN_WIDHT, SCREEN_HEIGHT))
-BEGIN_IMAGE = pygame.image.load('assets/sprites/img_22.png').convert_alpha()
+BEGIN_IMAGE = pygame.image.load('assets/sprites/img_19.png').convert_alpha()
+BEGIN_IMAGE = pygame.transform.scale(BEGIN_IMAGE, DEFAULT_IMAGE_SIZE)
 
 bird_group = pygame.sprite.Group()
 bird = Bird()
@@ -185,7 +187,8 @@ clock = pygame.time.Clock()
 begin = True
 
 while begin:
-
+    spin_duration = 2  # in seconds
+    start_time = time.time()
     clock.tick(15)
 
     for event in pygame.event.get():
@@ -197,6 +200,8 @@ while begin:
                 pygame.mixer.music.load(wing)
                 pygame.mixer.music.play()
                 begin = False
+
+
 
     screen.blit(BACKGROUND, (0, 0))
     screen.blit(BEGIN_IMAGE, (120, 150))
