@@ -59,15 +59,23 @@ class Bird(pygame.sprite.Sprite):
         self.rect[0] = SCREEN_WIDHT / 6
         self.rect[1] = SCREEN_HEIGHT / 2
 
-
     def update(self):
         self.current_image = (self.current_image + 1) % 3
         self.image = self.images[self.current_image]
         self.speed += GRAVITY
 
-        # UPDATE HEIGHT
+        # Update height with boundary check
+        if self.rect[1] < 0:
+            self.rect[1] = 0
+            self.speed = 0  # Reset speed when hitting the top boundary
+
         self.rect[1] += self.speed
 
+        # Additional condition to prevent going beyond a certain height
+        max_height = SCREEN_HEIGHT - 100
+        if self.rect[1] > max_height:
+            self.rect[1] = max_height
+            self.speed = 0  # Reset speed when reaching the maximum height
     def bump(self):
         self.speed = -SPEED
 
