@@ -5,16 +5,12 @@ from pygame.locals import *
 from pygame import mixer
 
 
-
-
-
 mixer.init()
 mixer.music.load('assets/audio/rain.mp3')
 mixer.music.play()
 
 pygame.init()
 pygame.font.init()
-
 
 # VARIABLES
 SCREEN_WIDHT = 400
@@ -49,8 +45,6 @@ class Bird(pygame.sprite.Sprite):
                        pygame.image.load('assets/sprites/yellowbird-downflap.png').convert_alpha()]
 
         self.speed = SPEED
-
-
 
         self.current_image = 0
         self.image = pygame.image.load('assets/sprites/bluebird-upflap.png').convert_alpha()
