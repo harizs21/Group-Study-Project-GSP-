@@ -70,11 +70,11 @@ class Bird(pygame.sprite.Sprite):
 
         self.rect[1] += self.speed
 
+#just incase we need it
         # Additional condition to prevent going beyond a certain height
-        max_height = SCREEN_HEIGHT - 200
-        if self.rect[1] > max_height:
-            self.rect[1] = max_height
-            self.speed = 0  # Reset speed when reaching the maximum height
+        #max_height = SCREEN_HEIGHT - 100
+        #if self.rect[1] > max_height:
+            ## self.speed = 0  # Reset speed when reaching the maximum height
     def bump(self):
         self.speed = -SPEED
 
