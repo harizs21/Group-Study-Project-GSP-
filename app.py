@@ -1,113 +1,23 @@
 import database
 import pygame
-import sys
-import subprocess
-import random
-from pygame.locals import *
 
-# Initialize pygame
+# Initialize Pygame
 pygame.init()
 
-screen_width = 400
+# Set up the screen
+screen_width = 800
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Leaderboard")
 
-# Colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-BLUE = (173, 216, 230)
-
-# Fonts
 font = pygame.font.Font(None, 36)
+clock = pygame.time.Clock()
 
-class Button:
-    def __init__(self, x, y, width, height, text, color, hover_color, command=None, submenu=None):
-        self.rect = pygame.Rect(x, y, width, height)
-        self.text = text
-        self.color = color
-        self.hover_color = hover_color
-        self.hovered = False
-        self.command = command
-        self.submenu = submenu
+def display_text(text, x, y):
+    text_surface = font.render(text, True, (255, 255, 255))
+    screen.blit(text_surface, (x, y))
 
-    def draw(self, surface):
-        if self.hovered:
-            pygame.draw.rect(surface, self.hover_color, self.rect)
-        else:
-            pygame.draw.rect(surface, self.color, self.rect)
-
-        text_surface = font.render(self.text, True, WHITE)
-        text_rect = text_surface.get_rect(center=self.rect.center)
-        surface.blit(text_surface, text_rect)
-
-    def update(self, mouse_pos):
-        if self.rect.collidepoint(mouse_pos):
-            self.hovered = True
-        else:
-            self.hovered = False
-
-
-class Menu:
-    def __init__(self):
-        pass
-
-    def run(self):
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                    pygame.quit()
-                    sys.exit()
-                if event.type == pygame.MOUSEMOTION:
-                    mouse_pos = event.pos
-                    '''for button in self.buttons:
-                        button.update(mouse_pos)'''
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    for button in self.buttons:
-                        if button.rect.collidepoint(event.pos):
-                            if button.command:
-                                if button.command[0] == "quit":
-                                    running = False
-                                    pygame.quit()
-                                    sys.exit()
-                                else:
-                                    subprocess.run(button.command)
-                            elif button.submenu:
-                                button.submenu.run()
-
-            # Draw the buttons
-            screen.fill(BLUE)
-            for button in self.buttons:
-                button.draw(screen)
-
-            pygame.display.flip()
-
-# Buttons
-flappy_button = Button(100, 200, 200, 50, "Flappy Mode", RED, BLACK, command=["python", "flappy.py"])
-flappy2_button = Button(100, 300, 200, 50, "Flappy2 Mode", RED, BLACK, command=["python", "flappy2.py"])
-quit_button = Button(100, 400, 200, 50, "Quit", RED, BLACK, command=["quit"])
-diff_button = Button(100, 200, 200, 50, "Difficulty", RED, BLACK, command=["python", "app.py"])
-lead_button = Button(100, 300, 200, 50, "Leaderboard", RED, BLACK, command=[])
-
-
-# Submenu for options
-options_game_submenu = Menu([diff_button, lead_button])
-option_button = Button(100, 300, 200, 50, "Options", RED, BLACK, submenu=options_game_submenu)
-
-# Submenu for start
-start_game_submenu = Menu([flappy_button, flappy2_button])
-start_button = Button(100, 200, 200, 50, "Start", RED, BLACK, submenu=start_game_submenu)
-
-# Menu with the submenu option
-main_menu = Menu([start_button, option_button, quit_button])
-
-# Run the main menu
-main_menu.run()
-
-MENU_PROMPT = """-- NBA Teams App--
+MENU_PROMPT = """-- NBA yu--
 
 Please choose one of these options:
 
@@ -129,27 +39,44 @@ def menu():
     connection = database.connect()
     database.create_tables(connection)
 
-    while (user_input := input(MENU_PROMPT)) != "10":
-        if user_input == "1":
-            prompt_add_new_team(connection)
-        elif user_input == "2":
-            prompt_see_all_teams(connection)
-        elif user_input == "3":
-            prompt_find_team(connection)
-        elif user_input == "4":
-            prompt_find_rings(connection)
-        elif user_input == "5":
-            prompt_find_team_record(connection)
-        elif user_input == "6":
-            prompt_find_player(connection)
-        elif user_input == "7":
-            prompt_delete_team(connection)
-        elif user_input == "8":
-            prompt_sort_by_rings(connection)
-        elif user_input == "9":
-            prompt_sort_by_record(connection)
-        else:
-            print("Invalid input, please try again!")
+    while True:
+        screen.fill((0, 0, 0))
+
+        display_text(MENU_PROMPT, 20, 20)
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1:
+                    prompt_add_new_team(connection)
+                elif event.key == pygame.K_2:
+                    prompt_see_all_teams(connection)
+                elif event.key == pygame.K_3:
+                    prompt_find_team(connection)
+                elif event.key == pygame.K_4:
+                    prompt_find_rings(connection)
+                elif event.key == pygame.K_5:
+                    prompt_find_team_record(connection)
+                elif event.key == pygame.K_6:
+                    prompt_find_player(connection)
+                elif event.key == pygame.K_7:
+                    prompt_delete_team(connection)
+                elif event.key == pygame.K_8:
+                    prompt_sort_by_rings(connection)
+                elif event.key == pygame.K_9:
+                    prompt_sort_by_record(connection)
+                elif event.key == pygame.K_0:
+                    pygame.quit()
+                    quit()
+                else:
+                    print("Invalid input, please try again!")
+
+        clock.tick(30)  # Adjust the frame rate as needed
 
 
 def prompt_add_new_team(connection):
@@ -225,7 +152,6 @@ def prompt_sort_by_record(connection):
 
     for team in teams:
         print(f"The {team[1]} {team[2]} had a record of {team[3]}-{82 - team[3]} in 2022-2023. ")
-
 
 
 menu()
