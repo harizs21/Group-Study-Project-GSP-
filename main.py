@@ -92,9 +92,38 @@ class Menu:
 flappy_button = Button(100, 200, 200, 50, "Flappy Mode", RED, BLACK, command=["python", "flappy.py"])
 flappy2_button = Button(100, 300, 200, 50, "Flappy2 Mode", RED, BLACK, command=["python", "flappy2.py"])
 quit_button = Button(100, 400, 200, 50, "Quit", RED, BLACK, command=["quit"])
-diff_button = Button(100, 200, 200, 50, "Difficulty", RED, BLACK, command=["python", "app.py"])
-lead_button = Button(100, 300, 200, 50, "Leaderboard", RED, BLACK, command=[])
+diff_button = Button(100, 200, 200, 50, "Difficulty", RED, BLACK, command=[])
+lead_button = Button(100, 300, 200, 50, "Leaderboard", RED, BLACK, command=["python", "app.py"])
 
+
+easy_button = Button(100, 200, 200, 50, "Easy", RED, BLACK, command=[])
+medium_button = Button(100, 300, 200, 50, "Medium", RED, BLACK, command=[])
+hard_button = Button(100, 400, 200, 50, "Hard", RED, BLACK, command=["python", "flappy.py"])
+
+
+
+# Submenu for difficulty options
+difficulty_submenu = Menu([easy_button, medium_button, hard_button])
+diff_button.submenu = difficulty_submenu
+
+
+survive_the_snake = Button(100, 200, 200, 50, "Snake survival", RED, BLACK, command=["python", "flappyez.py"])
+escape_broken_pipe = Button(100, 300, 200, 50, "broken Pipes", RED, BLACK, command=["python", "flappy2.py"])
+classic_flappy = Button(100, 400, 200, 50, "Classic", RED, BLACK, command=["python", ""])
+
+easy_options_submenu = Menu([survive_the_snake, escape_broken_pipe, classic_flappy])
+
+
+survive_the_snake = Button(100, 200, 200, 50, "Ssssss", RED, BLACK, command=["python", "flappyez.py"])
+escape_broken_pipe = Button(100, 300, 200, 50, "yur", RED, BLACK, command=["python", "flappy2.py"])
+classic_flappy = Button(100, 400, 200, 50, "Classic", RED, BLACK, command=["python", ""])
+# Submenu for easy options
+
+medium_options_submenu = Menu([survive_the_snake, escape_broken_pipe, classic_flappy])
+
+# Update the easy difficulty button with the submenu
+easy_button.submenu = easy_options_submenu
+medium_button.submenu = medium_options_submenu
 
 # Submenu for options
 options_game_submenu = Menu([diff_button, lead_button])

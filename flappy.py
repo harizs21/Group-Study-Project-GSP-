@@ -21,19 +21,19 @@ snake_sound_timer = pygame.time.get_ticks()
 # VARIABLES
 SCREEN_WIDHT = 400
 SCREEN_HEIGHT = 600
-SPEED = 20
-GRAVITY = 2.5
-GAME_SPEED = 15
+SPEED = 15
+GRAVITY = 3.5
+GAME_SPEED = 63
 score = 0
 display_score = pygame.font.Font('freesansbold.ttf', 36)
 pass_pipe = False
 GROUND_WIDHT = 2 * SCREEN_WIDHT
 GROUND_HEIGHT = 100
 
-PIPE_WIDHT = 80
-PIPE_HEIGHT = 500
+PIPE_WIDHT = 100
+PIPE_HEIGHT = 600
 
-PIPE_GAP = 150
+PIPE_GAP = 15
 
 wing = 'assets/audio/wing.wav'
 hit = 'assets/audio/hit.wav'

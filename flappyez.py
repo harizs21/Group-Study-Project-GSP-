@@ -23,17 +23,17 @@ SCREEN_WIDHT = 400
 SCREEN_HEIGHT = 600
 SPEED = 20
 GRAVITY = 2.5
-GAME_SPEED = 15
+GAME_SPEED = 20
 score = 0
 display_score = pygame.font.Font('freesansbold.ttf', 36)
 pass_pipe = False
 GROUND_WIDHT = 2 * SCREEN_WIDHT
-GROUND_HEIGHT = 10
+GROUND_HEIGHT = 100
 
-PIPE_WIDHT = 50
-PIPE_HEIGHT = 100
+PIPE_WIDHT = 100
+PIPE_HEIGHT = 300
 
-PIPE_GAP = 200
+PIPE_GAP = 100
 
 wing = 'assets/audio/wing.wav'
 hit = 'assets/audio/hit.wav'
@@ -84,7 +84,7 @@ class Bird(pygame.sprite.Sprite):
 class Pipe(pygame.sprite.Sprite):
     def __init__(self, inverted, xpos, ysize):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('assets/sprites/pipe-red.png').convert_alpha()
+        self.image = pygame.image.load('assets/sprites/img_13.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (PIPE_WIDHT, PIPE_HEIGHT))
         self.rect = self.image.get_rect()
         self.rect[0] = xpos
@@ -139,15 +139,13 @@ def get_random_pipes(xpos):
     score_rectangle = pygame.Rect(xpos + PIPE_WIDHT // 2 - 5, 0, 10, SCREEN_HEIGHT)
     return pipe, pipe_inverted, score_rectangle
 
-BACKGROUND = pygame.image.load('assets/sprites/background11.jpg')
+BACKGROUND = pygame.image.load('assets/sprites/underwater11.jpg')
 BACKGROUND = pygame.transform.scale(BACKGROUND, (SCREEN_WIDHT, SCREEN_HEIGHT))
-BEGIN_IMAGE = pygame.image.load('assets/sprites/img_37.png').convert_alpha()
+BEGIN_IMAGE = pygame.image.load('assets/sprites/message.png').convert_alpha()
 
 bird_group = pygame.sprite.Group()
 bird = Bird()
 bird_group.add(bird)
-
-
 
 ground_group = pygame.sprite.Group()
 
@@ -178,7 +176,7 @@ while begin:
                 begin = False
 
     screen.blit(BACKGROUND, (0, 0))
-    screen.blit(BEGIN_IMAGE, (-20, -50))
+    screen.blit(BEGIN_IMAGE, (120, 150))
 
     if is_off_screen(ground_group.sprites()[0]):
         ground_group.remove(ground_group.sprites()[0])
