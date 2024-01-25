@@ -2,6 +2,7 @@ import pygame
 import random
 from pygame.locals import *
 from pygame import mixer
+import database
 
 screen_width = 400
 screen_height = 600
@@ -161,6 +162,42 @@ for i in range(2):
 
 clock = pygame.time.Clock()
 
+connection = database.connect()
+database.create_tables(connection)
+def store_score_in_database(connection, score):
+    name = input("Enter your name: ")
+    database.create_tables(connection)
+    database.add_score(connection, name, score)
+    print(score)
+
+def prompt_show_all_scores(connection):
+    high_scores = database.show_all_scores(connection)
+    for high_score in high_scores:
+        print(f"{high_score}")
+
+def prompt_sort_by_scores(connection):
+    high_scores = database.sort_by_scores(connection)
+    for high_score in high_scores:
+        print(f"{high_score}")
+
+def display_sorted_scores(connection):
+    screen.fill((173, 216, 230))  # Fill the screen with a black background
+
+    # Get the sorted scores from the database
+    sorted_scores = database.sort_by_scores(connection)
+
+    # Display the sorted scores on the screen
+    font = pygame.font.Font(None, 36)
+    y_position = 20  # Starting y-position for the first score
+
+    for i, score_data in enumerate(sorted_scores):
+        score_text = font.render(f"{i + 1}. {score_data[1]}: {score_data[2]}", True, (255, 0, 0))
+        screen.blit(score_text, (20, y_position))
+        y_position += 40  # Adjust this value to control the vertical spacing between scores
+
+    pygame.display.flip()  # Update the display
+
+
 begin = True
 
 while begin:
@@ -194,6 +231,7 @@ while begin:
 
     pygame.display.update()
 while True:
+    connection = database.connect()
     clock.tick(15)
 
     for event in pygame.event.get():
@@ -209,14 +247,12 @@ while True:
 
     if is_off_screen(ground_group.sprites()[0]):
         ground_group.remove(ground_group.sprites()[0])
-
         new_ground = Ground(GROUND_WIDHT - 20)
         ground_group.add(new_ground)
 
     if is_off_screen(pipe_group.sprites()[0]):
         pipe_group.remove(pipe_group.sprites()[0])
         pipe_group.remove(pipe_group.sprites()[0])
-
         pipes = get_random_pipes(SCREEN_WIDHT * 2)
 
         pipe_group.add(pipes[0])
@@ -247,15 +283,27 @@ while True:
         pygame.mixer.music.play()
 
         game_over_text = font.render("Game Over", True, (144, 141, 141))
-        screen.blit(game_over_text, (50, 160))
+        screen.blit(game_over_text, (50, 150))
 
         # Display the final score
         final_score_text = font.render("Score: " + str(score), True, (0, 255, 0))
-        screen.blit(final_score_text, (100, 120))
+        screen.blit(final_score_text, (100, 100))
 
         # Display restart prompt
         restart_text = font.render("R to restart", True, (0, 0, 255))
         screen.blit(restart_text, (80, 200))
+
+        # Display save score
+        save_text = font.render("S to save score", True, (255, 0, 0))
+        screen.blit(save_text, (20, 250))
+
+        # Display leaderboard
+        lead_text = font.render("L to view", True, (255, 165, 0))
+        screen.blit(lead_text, (70, 300))
+
+        # Display leaderboard
+        leaderboard_text = font.render("leaderboard", True, (255, 165, 0))
+        screen.blit(leaderboard_text, (50, 350))
 
         pygame.display.update()
 
@@ -275,6 +323,14 @@ while True:
                         pipe_group.empty()
                         ground_group.empty()
                         pass_pipe = False
+                    if event.key == K_s:
+                        restart = False
+                        print(score)
+                        store_score_in_database(connection, score)
+                    if event.key == K_l:
+                        restart = False
+                        print(score)
+                        display_sorted_scores(connection)
 
                         for i in range(2):
                             ground = Ground(GROUND_WIDHT * i)
@@ -301,5 +357,42 @@ while True:
     font = pygame.font.Font(None, 36)
 pygame.init()
 
+
 screen = pygame.display.set_mode((SCREEN_WIDHT, SCREEN_HEIGHT))
 pygame.display.set_caption('Flappy Bird')
+
+MENU_PROMPT = """-- Flappy Bird Leaderboard --
+
+Top 10 Scores
+"""
+
+def display_menu_prompt(font, size, x, y):
+    font = pygame.font.Font(None, size)
+    text = font.render(MENU_PROMPT, True, (255, 255, 255))
+    screen.blit(text, (x, y))
+def menu():
+    connection = database.connect()
+    database.create_tables(connection)
+
+    while True:
+        screen.fill((0, 0, 0))
+
+        display_menu_prompt(None, 20, 20, 20)
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_s:
+                    store_score_in_database(connection, score)
+                    print(score)
+                else:
+                    print("Invalid input, please try again!")
+
+        clock.tick(30)  # Adjust the frame rate as needed
+
+menu()
