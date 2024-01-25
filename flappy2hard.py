@@ -23,17 +23,17 @@ SCREEN_WIDHT = 400
 SCREEN_HEIGHT = 600
 SPEED = 20
 GRAVITY = 2.5
-GAME_SPEED = 20
+GAME_SPEED = 50
 score = 0
 display_score = pygame.font.Font('freesansbold.ttf', 36)
 pass_pipe = False
 GROUND_WIDHT = 2 * SCREEN_WIDHT
-GROUND_HEIGHT = 100
+GROUND_HEIGHT = 10
 
-PIPE_WIDHT = 100
-PIPE_HEIGHT = 350
+PIPE_WIDHT = 150
+PIPE_HEIGHT = 100
 
-PIPE_GAP = 150
+PIPE_GAP = 200
 
 wing = 'assets/audio/wing.wav'
 hit = 'assets/audio/hit.wav'
@@ -84,7 +84,7 @@ class Bird(pygame.sprite.Sprite):
 class Pipe(pygame.sprite.Sprite):
     def __init__(self, inverted, xpos, ysize):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load('assets/sprites/img_13.png').convert_alpha()
+        self.image = pygame.image.load('assets/sprites/pipe-red.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (PIPE_WIDHT, PIPE_HEIGHT))
         self.rect = self.image.get_rect()
         self.rect[0] = xpos
@@ -92,15 +92,15 @@ class Pipe(pygame.sprite.Sprite):
         if inverted:
             self.image = pygame.transform.flip(self.image, False, True)
             self.rect[1] = - (self.rect[3] - ysize)
-            self.direction = 0
+            self.direction = 5
         else:
             self.rect[1] = SCREEN_HEIGHT - ysize
-            self.direction = 0
+            self.direction = 10
 
         self.mask = pygame.mask.from_surface(self.image)
-        self.amplitude = -3  # speed
-        self.frequency = 3.0  # up and down
-        self.time = 2
+        self.amplitude = 8 # speed
+        self.frequency = 8.0  # up and down
+        self.time = 3
 
     def update(self):
         self.rect[0] -= GAME_SPEED
@@ -139,13 +139,15 @@ def get_random_pipes(xpos):
     score_rectangle = pygame.Rect(xpos + PIPE_WIDHT // 2 - 5, 0, 10, SCREEN_HEIGHT)
     return pipe, pipe_inverted, score_rectangle
 
-BACKGROUND = pygame.image.load('assets/sprites/underwater11.jpg')
+BACKGROUND = pygame.image.load('assets/sprites/background11.jpg')
 BACKGROUND = pygame.transform.scale(BACKGROUND, (SCREEN_WIDHT, SCREEN_HEIGHT))
-BEGIN_IMAGE = pygame.image.load('assets/sprites/message.png').convert_alpha()
+BEGIN_IMAGE = pygame.image.load('assets/sprites/img_37.png').convert_alpha()
 
 bird_group = pygame.sprite.Group()
 bird = Bird()
 bird_group.add(bird)
+
+
 
 ground_group = pygame.sprite.Group()
 
@@ -176,7 +178,7 @@ while begin:
                 begin = False
 
     screen.blit(BACKGROUND, (0, 0))
-    screen.blit(BEGIN_IMAGE, (120, 150))
+    screen.blit(BEGIN_IMAGE, (-20, -50))
 
     if is_off_screen(ground_group.sprites()[0]):
         ground_group.remove(ground_group.sprites()[0])

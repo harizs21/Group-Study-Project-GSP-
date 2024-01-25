@@ -23,17 +23,17 @@ SCREEN_WIDHT = 400
 SCREEN_HEIGHT = 600
 SPEED = 20
 GRAVITY = 2.5
-GAME_SPEED = 20
+GAME_SPEED = 50
 score = 0
 display_score = pygame.font.Font('freesansbold.ttf', 36)
 pass_pipe = False
 GROUND_WIDHT = 2 * SCREEN_WIDHT
 GROUND_HEIGHT = 100
 
-PIPE_WIDHT = 100
-PIPE_HEIGHT = 350
+PIPE_WIDHT = 200
+PIPE_HEIGHT = 300
 
-PIPE_GAP = 150
+PIPE_GAP = 100
 
 wing = 'assets/audio/wing.wav'
 hit = 'assets/audio/hit.wav'
@@ -92,10 +92,10 @@ class Pipe(pygame.sprite.Sprite):
         if inverted:
             self.image = pygame.transform.flip(self.image, False, True)
             self.rect[1] = - (self.rect[3] - ysize)
-            self.direction = 0
+            self.direction = 5
         else:
             self.rect[1] = SCREEN_HEIGHT - ysize
-            self.direction = 0
+            self.direction = -1
 
         self.mask = pygame.mask.from_surface(self.image)
         self.amplitude = -3  # speed
