@@ -119,6 +119,55 @@ flappy2_button = Button(100, 300, 200, 50, "Flappy2 Mode", RED, BLACK, command=[
 quit_button = Button(100, 400, 200, 50, "Quit", RED, BLACK, command=sys.exit)
 diff_button = Button(100, 300, 200, 50, "Difficulty", RED, BLACK, command=["python", "app.py"])
 
+
+easy_button = Button(100, 200, 200, 50, "Easy", RED, BLACK, command=[])
+medium_button = Button(100, 300, 200, 50, "Medium", RED, BLACK, command=[])
+hard_button = Button(100, 400, 200, 50, "Hard", RED, BLACK, command=[])
+
+
+
+# Submenu for difficulty options
+difficulty_submenu = Menu([easy_button, medium_button, hard_button])
+diff_button.submenu = difficulty_submenu
+
+
+survive_the_snake = Button(100, 200, 200, 50, "Snake survival", RED, BLACK, command=["python", "flappyez.py"])
+escape_broken_pipe = Button(100, 300, 200, 50, "broken Pipes", RED, BLACK, command=["python", "flappy2.py"])
+classic_flappy = Button(100, 400, 200, 50, "Classic", RED, BLACK, command=["python", ""])
+
+easy_options_submenu = Menu([survive_the_snake, escape_broken_pipe, classic_flappy])
+
+
+survive_sss = Button(100, 200, 200, 50, "Ssssss", RED, BLACK, command=["python", "flappymid.py"])
+brokie_pepe = Button(100, 300, 200, 50, "yur", RED, BLACK, command=["python", "flappy2.py"])
+non_exsist = Button(100, 400, 200, 50, "Classic", RED, BLACK, command=["python", ""])
+# Submenu for easy options
+
+medium_options_submenu = Menu([survive_sss, brokie_pepe, non_exsist])
+
+impossible_snake = Button(100, 200, 200, 50, "sss comingg", RED, BLACK, command=["python", "flappy.py"])
+crazy_pipe = Button(100, 300, 200, 50, "crazy pipe", RED, BLACK, command=["python", "flappy2hard.py"])
+no_exsis = Button(100, 400, 200, 50, " non exsis", RED, BLACK, command=["python", ""])
+
+
+hard_options_submenu = Menu([impossible_snake, crazy_pipe, no_exsis])
+
+# Update the easy difficulty button with the submenu
+easy_button.submenu = easy_options_submenu
+medium_button.submenu = medium_options_submenu
+hard_button.submenu = hard_options_submenu
+# Submenu for options
+options_game_submenu = Menu([diff_button, lead_button])
+option_button = Button(100, 300, 200, 50, "Options", RED, BLACK, submenu=options_game_submenu)
+
+easy_button = Button(100, 200, 200, 50, "Easy", RED, BLACK, command=[])
+medium_button = Button(100, 300, 200, 50, "Medium", RED, BLACK, command=[])
+hard_button = Button(100, 400, 200, 50, "Hard", RED, BLACK, command=[])
+
+# Submenu for difficulty options
+difficulty_submenu = Menu([easy_button, medium_button, hard_button])
+diff_button.submenu = difficulty_submenu
+
 # Submenu for start
 start_game_submenu = Menu([flappy_button, flappy2_button])
 start_button = Button(100, 200, 200, 50, "Start", RED, BLACK, submenu=start_game_submenu)
