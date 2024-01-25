@@ -117,7 +117,7 @@ def display_sorted_scores(connection):
 flappy_button = Button(100, 200, 200, 50, "Flappy Mode", RED, BLACK, command=["python", "flappy.py"])
 flappy2_button = Button(100, 300, 200, 50, "Flappy2 Mode", RED, BLACK, command=["python", "flappy2.py"])
 quit_button = Button(100, 400, 200, 50, "Quit", RED, BLACK, command=sys.exit)
-diff_button = Button(100, 300, 200, 50, "Difficulty", RED, BLACK, command=["python", "app.py"])
+diff_button = Button(100, 300, 200, 50, "Difficulty", RED, BLACK, command=[])
 
 
 easy_button = Button(100, 200, 200, 50, "Easy", RED, BLACK, command=[])
@@ -157,16 +157,8 @@ easy_button.submenu = easy_options_submenu
 medium_button.submenu = medium_options_submenu
 hard_button.submenu = hard_options_submenu
 # Submenu for options
-options_game_submenu = Menu([diff_button, lead_button])
+options_game_submenu = Menu([diff_button])
 option_button = Button(100, 300, 200, 50, "Options", RED, BLACK, submenu=options_game_submenu)
-
-easy_button = Button(100, 200, 200, 50, "Easy", RED, BLACK, command=[])
-medium_button = Button(100, 300, 200, 50, "Medium", RED, BLACK, command=[])
-hard_button = Button(100, 400, 200, 50, "Hard", RED, BLACK, command=[])
-
-# Submenu for difficulty options
-difficulty_submenu = Menu([easy_button, medium_button, hard_button])
-diff_button.submenu = difficulty_submenu
 
 # Submenu for start
 start_game_submenu = Menu([flappy_button, flappy2_button])
