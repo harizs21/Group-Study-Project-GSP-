@@ -185,16 +185,16 @@ def display_sorted_scores(connection):
 
     # Get the sorted scores from the database
     sorted_scores = database.sort_by_scores(connection)
-
+    pygame.display.flip()
     # Display the sorted scores on the screen
     font = pygame.font.Font(None, 36)
     y_position = 20  # Starting y-position for the first score
-
+    display_sorted_scores(connection)
     for i, score_data in enumerate(sorted_scores):
         score_text = font.render(f"{i + 1}. {score_data[1]}: {score_data[2]}", True, (255, 0, 0))
         screen.blit(score_text, (20, y_position))
         y_position += 40  # Adjust this value to control the vertical spacing between scores
-
+        menu()
     pygame.display.flip()  # Update the display
 
 
@@ -244,6 +244,12 @@ while True:
                 pygame.mixer.music.play()
 
     screen.blit(BACKGROUND, (0, 0))
+
+    if ground_group.sprites():
+        if is_off_screen(ground_group.sprites()[0]):
+            ground_group.remove(ground_group.sprites()[0])
+            new_ground = Ground(GROUND_WIDHT - 20)
+            ground_group.add(new_ground)
 
     if is_off_screen(ground_group.sprites()[0]):
         ground_group.remove(ground_group.sprites()[0])
@@ -313,6 +319,7 @@ while True:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
+                    quit()
                 if event.type == KEYDOWN:
                     if event.key == K_r:
                         restart = True
@@ -323,11 +330,13 @@ while True:
                         pipe_group.empty()
                         ground_group.empty()
                         pass_pipe = False
+                    # Add other conditions for 'S', 'L', 'Q', etc.
                     if event.key == K_s:
                         restart = False
                         print(score)
                         store_score_in_database(connection, score)
                     if event.key == K_l:
+                        restart = False
                         restart = False
                         print(score)
                         display_sorted_scores(connection)
@@ -340,7 +349,7 @@ while True:
                             pipes = get_random_pipes(SCREEN_WIDHT * i + 800)
                             pipe_group.add(pipes[0])
                             pipe_group.add(pipes[1])
-
+                        pygame.display.update()
                         pygame.mixer.music.load('assets/audio/bensound-summer_ogg_music.ogg')
                         pygame.mixer.music.play()
                     elif event.key == K_q:

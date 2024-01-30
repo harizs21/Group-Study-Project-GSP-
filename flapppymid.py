@@ -24,17 +24,17 @@ SCREEN_WIDHT = 400
 SCREEN_HEIGHT = 600
 SPEED = 20
 GRAVITY = 2.5
-GAME_SPEED = 15
+GAME_SPEED = 35
 score = 0
 display_score = pygame.font.Font('freesansbold.ttf', 36)
 pass_pipe = False
 GROUND_WIDHT = 2 * SCREEN_WIDHT
 GROUND_HEIGHT = 30
 
-PIPE_WIDHT = 50
-PIPE_HEIGHT = 100
+PIPE_WIDHT = 80
+PIPE_HEIGHT = 250
 
-PIPE_GAP = 200
+PIPE_GAP = 10
 
 wing = 'assets/audio/wing.wav'
 hit = 'assets/audio/hit.wav'
@@ -99,9 +99,9 @@ class Pipe(pygame.sprite.Sprite):
             self.direction = -1
 
         self.mask = pygame.mask.from_surface(self.image)
-        self.amplitude = -3  # speed
-        self.frequency = 3.0  # up and down
-        self.time = 2
+        self.amplitude = 8  # speed
+        self.frequency = 9.0  # up and down
+        self.time = 3
 
     def update(self):
         self.rect[0] -= GAME_SPEED

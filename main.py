@@ -139,7 +139,7 @@ easy_options_submenu = Menu([survive_the_snake, escape_broken_pipe, classic_flap
 
 
 survive_sss = Button(100, 200, 200, 50, "Ssssss", RED, BLACK, command=["python", "flappymid.py"])
-brokie_pepe = Button(100, 300, 200, 50, "yur", RED, BLACK, command=["python", "flappy2.py"])
+brokie_pepe = Button(100, 300, 200, 50, "fast pipes", RED, BLACK, command=["python", "flapppymid.py"])
 non_exsist = Button(100, 400, 200, 50, "Classic", RED, BLACK, command=["python", ""])
 # Submenu for easy options
 

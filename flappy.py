@@ -245,6 +245,13 @@ while True:
 
     screen.blit(BACKGROUND, (0, 0))
 
+    if ground_group.sprites():
+        if is_off_screen(ground_group.sprites()[0]):
+            ground_group.remove(ground_group.sprites()[0])
+            new_ground = Ground(GROUND_WIDHT - 20)
+            ground_group.add(new_ground)
+
+
     if is_off_screen(ground_group.sprites()[0]):
         ground_group.remove(ground_group.sprites()[0])
         new_ground = Ground(GROUND_WIDHT - 20)
@@ -309,11 +316,14 @@ while True:
 
         # Wait for the user to press 'R' to restart or 'Q' to quit
         restart = False
+
         while not restart:
+            clock.tick(15)
+
             for event in pygame.event.get():
                 if event.type == QUIT:
                     pygame.quit()
-                if event.type == KEYDOWN:
+                elif event.type == KEYDOWN:
                     if event.key == K_r:
                         restart = True
                         # Reset the game state
@@ -323,11 +333,11 @@ while True:
                         pipe_group.empty()
                         ground_group.empty()
                         pass_pipe = False
-                    if event.key == K_s:
+                    elif event.key == K_s:
                         restart = False
                         print(score)
                         store_score_in_database(connection, score)
-                    if event.key == K_l:
+                    elif event.key == K_l:
                         restart = False
                         print(score)
                         display_sorted_scores(connection)

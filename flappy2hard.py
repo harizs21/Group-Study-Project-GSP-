@@ -29,7 +29,7 @@ score = 0
 display_score = pygame.font.Font('freesansbold.ttf', 36)
 pass_pipe = False
 GROUND_WIDHT = 2 * SCREEN_WIDHT
-GROUND_HEIGHT = 10
+GROUND_HEIGHT = 30
 
 PIPE_WIDHT = 150
 PIPE_HEIGHT = 100
