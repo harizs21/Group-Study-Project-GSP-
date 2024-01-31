@@ -17,15 +17,26 @@ Press Q to Quit after finishing the game
 “Classic” mode will not work since Muaaz gave us his code too late
 
 Short Tutorial:
+
 Go to main.py
+
 Run the program
+
 Click on Difficulty
+
 Choose your difficulty level and which game mode you want to play(Start with easy)
+
 Use up and down keys to move up and down
+
 Dodge the objects
+
 Also don’t hit the ground
+
 When you die, click s to save score
+
 Go into text-based interface to type name
+
 When you play the game again you should see your score with your name beside it(after you have died and pressed L, for leaderboard)
+
 Play as many times as you want, just don’t get too addicted
 
