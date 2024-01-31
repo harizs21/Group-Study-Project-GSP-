@@ -16,6 +16,10 @@ Press Q to Quit after finishing the game
 
 “Classic” mode will not work since Muaaz gave us his code too late
 
+
+
+
+
 Short Tutorial:
 
 Go to main.py
